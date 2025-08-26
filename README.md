@@ -8,7 +8,6 @@ A Python library for analyzing surface science and electrocatalysis molecular dy
 - **Spatial Analysis**: Define interface/surface regions for localized analysis  
 - **Density Profiles**: Calculate 1D distributions along any dimension
 - **Dynamic Properties**: MSD, displacement correlations, residence times
-- **Publication Plots**: Built-in visualization tools
 
 ## Quick Start
 

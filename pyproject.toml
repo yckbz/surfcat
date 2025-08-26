@@ -1,0 +1,178 @@
+[build-system]
+requires = ["setuptools>=65.0", "setuptools-scm[toml]>=6.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "surfcat"
+version = "0.1.0"
+description = "A high-level post-processing library for surface and interfacial simulations"
+authors = [
+    {name = "SurfCat Development Team", email = "contact@surfcat.dev"}
+]
+maintainers = [
+    {name = "SurfCat Development Team", email = "contact@surfcat.dev"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = [
+    "molecular dynamics",
+    "surface science", 
+    "electrocatalysis",
+    "post-processing",
+    "analysis",
+    "simulation",
+    "interface",
+    "materials science",
+    "computational chemistry"
+]
+dependencies = [
+    "MDAnalysis>=2.0.0",
+    "numpy>=1.20.0",
+    "matplotlib>=3.5.0", 
+    "pandas>=1.3.0",
+    "scipy>=1.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "pre-commit",
+]
+optional = [
+    "ase>=3.22.0",
+    "psutil>=5.8.0",
+    "jupyter",
+    "notebook",
+]
+all = [
+    "pytest>=6.0",
+    "pytest-cov", 
+    "black",
+    "flake8",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "pre-commit",
+    "ase>=3.22.0",
+    "psutil>=5.8.0",
+    "jupyter",
+    "notebook",
+]
+
+[project.urls]
+Homepage = "https://github.com/surfcat/surfcat"
+Repository = "https://github.com/surfcat/surfcat"
+Documentation = "https://surfcat.readthedocs.io/"
+"Bug Reports" = "https://github.com/surfcat/surfcat/issues"
+Changelog = "https://github.com/surfcat/surfcat/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["surfcat", "surfcat.analysis", "surfcat.plotting"]
+
+[tool.setuptools.package-data]
+surfcat = ["py.typed"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-ra", 
+    "--strict-markers",
+    "--strict-config",
+    "--cov=surfcat",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["surfcat"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+per-file-ignores = [
+    "__init__.py:F401",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_column_numbers = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "MDAnalysis.*",
+    "matplotlib.*",
+    "scipy.*",
+    "ase.*",
+    "psutil.*",
+]
+ignore_missing_imports = true
